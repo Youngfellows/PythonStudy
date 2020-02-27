@@ -94,3 +94,25 @@ title = 'python can be easy to pick up and powerful languages'
 print(title.find("pick up"))
 
 # 复杂的匹配,正则匹配
+dateTime = "11/27/2020"
+if re.match(r'^\d+/\d+/\d+$', dateTime):
+    print("ok,match..")
+else:
+    print('not match...')
+
+# 8.字符串的替换
+# 普通的替换//用replace就可以
+text = 'python can be easy to study, powerful languages'
+print(text.replace("study", "learn"))
+
+# 复杂的替换//若要处理复杂的或者多个的替换，需要用到re模块的sub函数
+students = "Boy 103,girl 105"
+print(re.sub(r'[0-9]+', "120", students))
+print(re.sub(r'\d+', "122", students))
+
+# 9.字符串中去掉一些字符
+# 去除空格//对文本处理的时候比如从文件中读取一行，然后需要去除每一行的两侧的空格，table或者是换行符
+# 注意:字符串内部的空格不能去掉，若要去掉需要用re模块
+line = "     恭喜你,   你  通 过了...   "
+print(line.strip())
+print(re.sub(r'\s+',"",line))
