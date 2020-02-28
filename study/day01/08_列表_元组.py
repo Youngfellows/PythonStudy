@@ -121,4 +121,4 @@ print(list1)
 
 # 第一个元素已经被删掉了，第二个报错是将序列已经删除掉，所以找不到了
 del list1
-# print(list1)
+print(list1)
