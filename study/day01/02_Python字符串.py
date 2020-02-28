@@ -5,6 +5,8 @@ str3 = str1 + str2
 print(str3)
 
 # 2.字符串的合并
+# Join将序列中的多个字符串，合并成一个字符串
+# 语法：任意字符串.join(多字符串组成的序列)
 urlList = ['www', 'google', 'com']
 url = '.'.join(urlList)
 print(url)
@@ -66,6 +68,8 @@ print(reResult)
 
 line1 = 'abc aa;bb,cc | dd(xx).xxx 12.12        ssssss'
 # 按空格切
+# split(分割符，分割次数[可以省略])
+# 分割，返回一个列表，但是分割符会丢失
 print(re.split(r' +', line1))
 # 加将空格放可选框内[]内
 print(re.split(r'[ ]+', line1))
@@ -115,4 +119,89 @@ print(re.sub(r'\d+', "122", students))
 # 注意:字符串内部的空格不能去掉，若要去掉需要用re模块
 line = "     恭喜你,   你  通 过了...   "
 print(line.strip())
-print(re.sub(r'\s+',"",line))
+print(re.sub(r'\s+', "", line))
+
+# 常用操作方法
+# find():监测某个子串是否包含在这个字符串中，如果存在将返回下标位置，不存在则返回-1
+# 语法：字符串.find(字符串，开始下标位置，结束下标位置)
+# 注意：开始下标和结束下标的位置如果省略就表示在整个字符串中查找
+# index() 与上面的find()操作一致，只是没有找到将会抛出异常
+
+str1 = "学习Python使用快乐...Python很简单..."
+print(str1.find("Py"))
+print(str1.find("Py", 1, 9))
+print(str1.index("Py"))
+print(str1.index("Py", 1, 9))
+print(str1.find("Py2"))
+try:
+    print(str1.index("Py2"))
+except ValueError:
+    print("没找到Py2")
+
+print("统计Python个数:%d" % str1.count("Python"))
+# rfind(),返回最后一个出现的位置下标
+print(str1.rfind("Python"))
+
+# replace()替换字符串
+# 字符串.replace(旧子串，新子串，替换次数)
+# 注意：替换次数如果查找到子串出现的次数，则替换次数为该子串出现的次数,默认替换所有
+
+str2 = "我是Java,Java可以做很多东西，你喜欢Java吗"
+newStr = str2.replace("Java", "C++")
+print(newStr)
+newStr1 = str2.replace("Java", "php", 2)  # 只修改2次java子串
+print(newStr1)
+
+
+#一些不常用的字符串函数
+str1 = "    python python python python "
+# capitalize将第一个字符大写
+print(str1.capitalize())
+# title() 将所有的单词首字符大写
+print(str1.title())
+# lower() 将所有字符转成小写
+print(str1.lower())
+# upper 将所有字符转成大写
+print(str1.upper())
+# lstrip 删除左则空字符,rstrip 删除右侧空字符
+print(str1.lstrip().rstrip())
+# strip删除2侧空字符
+print(str1.strip())
+
+# ljust不够10个字符使用点来填充左对齐
+str1 = "hello"
+print(str1.ljust(10,"."))
+print(str1.ljust(10))#空格填充
+
+# rjust不够10个字符使用点来填充右对齐
+print(str1.rjust(10,"."))
+print(str1.rjust(10))
+
+# 判断子串是否在字符串中开头或者结尾
+str1 = "pythonwqewqrwqrqwrerewdsfgdsfghello"
+# 字符串.startswith(子串,开始位置,截止位置) 判断该子串是否在字符串开始位置
+print(str1.startswith("python"))
+# 字符串.endswith(子串,开始位置,截止位置) 判断该子串是否在字符串结尾位置
+print(str1.endswith("hello2"))
+
+# isalpha/isdigit/isalnum/isspace
+# isalpha判断是否是字符串中所有的字符是不是字母,如果不是全部字母返回False
+# isdigit判断字符串中是不是只包含数字,如果是则返回True
+# isalnum只要字符中包含数字即返回True
+# isspace 判断是否全部是空字符
+
+str1 = "hello1234"
+str2 = "hello"
+
+# isalpha判断是否是字符串中所有的字符是不是字母,如果不是全部字母返回False
+print(str1.isalpha())
+print("*"*30)
+print(str2.isalpha())
+# isdigit判断字符串中是不是只包含数字,如果是则返回True
+str3 = "44444"
+print(str3.isdigit())
+# isalnum只要字符中包含数字即返回True
+print(str1.isalnum())
+# isspace 判断是否全部是空字符
+str4 = " "
+print(str4.isspace())
