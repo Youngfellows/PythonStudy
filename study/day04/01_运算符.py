@@ -144,3 +144,117 @@ print("a << 2 = %d,二进制: %s" % (h, bin(h).replace("0b", "").rjust(8, "0")))
 i = a >> 2
 print("a >> 2 = %d,二进制: %s" % (i, bin(i).replace("0b", "").rjust(8, "0")))
 
+# 五、Python逻辑运算符
+print("********************Python逻辑运算符************************")
+'''
+Python语言支持逻辑运算符，以下假设变量 a 为 10, b为 20:
+运算符	逻辑表达式	描述	                                                             实例
+and	    x and y	    布尔"与" - 如果 x 为 False，x and y 返回 False，否则它返回 y 的计算值。	 (a and b) 返回 20。
+or	    x or y	    布尔"或" - 如果 x 是 True，它返回 x 的值，否则它返回 y 的计算值。	     (a or b) 返回 10。
+not	    not x	    布尔"非" - 如果 x 为 True，返回 False 。如果 x 为 False，它返回 True。	 not(a and b) 返回 False
+'''
+a = 10
+b = 20
+
+c = a and b
+print("c = %d" % c)
+if (a and b):
+    print("1 - 变量 a 和 b 都为 true")
+else:
+    print("1 - 变量 a 和 b 有一个不为 true")
+
+if (a or b):
+    print("2 - 变量 a 和 b 都为 true，或其中一个变量为 true")
+else:
+    print("2 - 变量 a 和 b 都不为 true")
+
+# 修改变量 a 的值
+a = 0
+if (a and b):
+    print("3 - 变量 a 和 b 都为 true")
+else:
+    print("3 - 变量 a 和 b 有一个不为 true")
+
+d = a or b
+print("d = %d" % d)
+if (a or b):
+    print("4 - 变量 a 和 b 都为 true，或其中一个变量为 true")
+else:
+    print("4 - 变量 a 和 b 都不为 true")
+
+e = not (a and b)
+print("e = %s" % e)
+if not (a and b):
+    print("5 - 变量 a 和 b 都为 false，或其中一个变量为 false")
+else:
+    print("5 - 变量 a 和 b 都为 true")
+
+# 六、Python成员运算符
+'''
+除了以上的一些运算符之外，Python还支持成员运算符，测试实例中包含了一系列的成员，包括字符串，列表或元组。
+
+运算符	描述									                实例
+in	    如果在指定的序列中找到值返回 True，否则返回 False。			x 在 y 序列中 , 如果 x 在 y 序列中返回 True。
+not in	如果在指定的序列中没有找到值返回 True，否则返回 False。		x 不在 y 序列中 , 如果 x 不在 y 序列中返回 True。
+'''
+print("********************Python成员运算符*************************")
+address = "香港"
+hometown = "南宁"
+citys = ["澳门", "北京", "香港", "深圳", "南山", "厦门"]
+
+if address in citys:
+    print(f"{address}在列表: %s" % citys)
+else:
+    print(f"{address}不在列表: %s" % citys)
+
+if hometown not in citys:
+    print(f"{hometown}不在列表: %s" % citys)
+else:
+    print(f"{hometown}在列表: %s" % citys)
+
+# 七、Python身份运算符
+'''
+运算符	描述								        实例
+is	is 是判断两个标识符是不是引用自一个对象				x is y, 类似 id(x) == id(y) , 如果引用的是同一个对象则返回 True，否则返回 False
+is not	is not 是判断两个标识符是不是引用自不同对象		x is not y ， 类似 id(a) != id(b)。如果引用的不是同一个对象则返回结果 True，否则返回 False。
+
+注： id() 函数用于获取对象内存地址。
+'''
+a = 20
+b = 20
+
+print("******************Python身份运算符*************************")
+if (a is b):
+    print("1 - a 和 b 有相同的标识")
+else:
+    print("1 - a 和 b 没有有相同的标识")
+
+if (id(a) == id(b)):
+    print("2 - a 和 b 有相同的标识")
+else:
+    print("2 - a 和 b 没有有相同的标识")
+
+b = 30
+if (a is b):
+    print("3 - a 和 b 有相同的标识")
+else:
+    print("3 - a 和 b 没有有相同的标识")
+
+if (id(a) == id(b)):
+    print("4 - a 和 b 有相同的标识")
+else:
+    print("4 - a 和 b 没有有相同的标识")
+
+if (a is not b):
+    print("5 - a 和 b 没有有相同的标识")
+else:
+    print("4 - a 和 b 有相同的标识")
+
+# is 与 == 区别：
+# is 用于判断两个变量引用对象是否为同一个， == 用于判断引用变量的值是否相等。
+province = ("北京", "香港", "广州", "苏州")
+new_province = province
+print(id(province))
+print(id(new_province))
+
+
