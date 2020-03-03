@@ -113,3 +113,37 @@ print(flowers)
 
 # 元素出现次数
 print("水仙花出现次数:", flowers.count("水仙花"))
+
+# 获取元素的索引位置
+index = flowers.index("玫瑰花")
+print("玫瑰花的索引位置是:%d" % index)
+
+# 移除最后一个元素
+flower = flowers.pop()
+print("移除最后一个元素:%s" % flower)
+print(flowers)
+flower2 = flowers.pop(1)
+print("移除第2个元素:%s" % flower2)
+
+print("*" * 30)
+flowers.remove("桃花")  # 移除桃花
+print(flowers)
+
+# 反向列表中元素
+flowers.reverse()
+print(flowers)
+
+# 对原列表进行排序
+flowers.sort(reverse=True)
+print("降序:", flowers)
+
+flowers.sort(reverse=False)
+print("升序:", flowers)
+
+# 拷贝列表
+coyp_cars = cars.copy()
+print(coyp_cars)
+
+# 清空列表
+cars.clear()
+print("清空列表cars后:", cars)
