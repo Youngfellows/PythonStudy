@@ -14,7 +14,7 @@ for fileName in allFileName:
     # print(fileName)
     # print("index = {}".format(index))
     # print("文件名:{},后缀:{}".format(name, file_suffix))
-    new_name = re.sub(r"_\[.*\]_", "_[东京好热]_", name)
+    new_name = re.sub(r"_\[.*\]_", "_[浪漫巴厘岛]_", name)
     # print(new_name)
     os.rename("./png/" + fileName, "./png/" + new_name + file_suffix)
 
