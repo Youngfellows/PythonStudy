@@ -177,5 +177,8 @@ print(split_list)
 split_list = re.split(r"[,|\s]\d+[,|\s]", line)
 print(split_list)
 
-split_list = re.split(r"[,|\s]\d+[,|\s]", line)
-print(split_list)
+#9、匹配数字
+line = "one 123 two 3.14 three 489 five 987 six 00.798 senv 9.79 ,ten 0.431"
+
+matchOjb = re.findall(r"[1-9]\d*\.?\d*",line)
+print(matchOjb)
