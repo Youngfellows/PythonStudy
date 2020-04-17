@@ -234,7 +234,7 @@ class Excel(object):
             car = {}  # 字典对象
             for j, cell in enumerate(row):
                 cell_value = cell.value
-                print(r"({0} {1}) {2}".format(i, j, cell_value), "\t", end="")
+                #print("({0} {1}) {2}".format(i, j, cell_value), end="")
                 if i != 0:
                     if j == 0:
                         car[car_number] = cell_value
@@ -279,26 +279,6 @@ class Excel(object):
         json_str = json.dumps(dict, ensure_ascii=False)
         with open(file_name, "wb") as fp:
             fp.write(json_str.encode('utf-8'))
-
-
-def parse_car_sheet(self):
-    '''解析car sheet'''
-    pass
-
-
-def parse_driver_sheet(self):
-    '''解析driver sheet'''
-    pass
-
-
-def parse_passenger_sheet(self):
-    '''解析passenger sheet'''
-    pass
-
-
-def parse_imei_sheet(self):
-    '''解析imei sheet'''
-    pass
 
 
 if __name__ == "__main__":
