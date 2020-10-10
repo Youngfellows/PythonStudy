@@ -174,7 +174,7 @@ line = "one,123,two 3.14,three 489, five 987, ..."
 split_list = re.split(r",", line)
 print(split_list)
 
-split_list = re.split(r"[,|\s]\d+[,|\s]", line)
+split_list = re.split(r"[,|\s]+\d+[,|\s]+", line)
 print(split_list)
 
 #9、匹配数字

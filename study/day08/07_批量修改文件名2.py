@@ -71,10 +71,10 @@ class MyOS(object):
                         file_suffix = filename[index:]
                         print("index:{}, name:{}, file_suffix:{}".format(index, name, file_suffix))
                         # new_name = re.sub(r"_\[.*\]_", "_[浪漫巴厘岛]_", name)
-                        new_name = re.sub(r"^\d.*_", "_[浪漫巴厘岛]_", name)
+                        new_name = re.sub(r"^\d.*_+", "_[浪漫巴厘岛]_", name)
                         print("new_name: {}".format(new_name))
                         # new_file = parent + os.sep + str(number) + "_" + name + file_suffix
-                        new_file = parent + os.sep + str(number) + "_" + new_name + file_suffix
+                        new_file = parent + os.sep + str(number) + new_name + file_suffix
                         print("new_file: {}".format(new_file))
                         os.rename(file, new_file)
                         number = number + 1

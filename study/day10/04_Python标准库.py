@@ -7,10 +7,10 @@ import os
 # 操作系统接口
 print("当前工作目录: {}".format(os.getcwd()))
 # 修改当前的工作目录
-# os.chdir("C:\\Users\\f2847881\\Desktop\\push")
+# os.chdir("C:/Users/AIJACK/Desktop/jiagu")
 # print("当前工作目录: {}".format(os.getcwd()))
-# 执行系统命令 mkdir
-# os.system("mkdir today")
+#执行系统命令 mkdir
+#os.system("mkdir today")
 
 import shutil
 

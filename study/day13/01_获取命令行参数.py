@@ -3,13 +3,13 @@ import sys
 import getopt
 
 
-class ApkShield(object):
+class CmdField(object):
     def __init__(self):
         object.__init__(self)
 
     def main(self, argv):
         """
-        取得命令行参数: python .\01_apkshield.py -s xxx.apk -p yyy.apk
+        取得命令行参数: python.exe .\01_获取命令行参数.py -s xxx.apk -p yyy.apk
         """
         shield_path = ''
         payload_path = ''
@@ -35,6 +35,5 @@ class ApkShield(object):
 
 
 if __name__ == "__main__":
-    apkshield = ApkShield()
-    apkshield.main(argv=sys.argv[1:])
-    # apkshield.main(argv=sys.argv)
+    cmd_filed = CmdField()
+    cmd_filed.main(argv=sys.argv[1:])
