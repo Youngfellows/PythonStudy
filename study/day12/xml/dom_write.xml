@@ -2,6 +2,6 @@
 <root>
 	<book price="199"/>
 	<name>计算机程序设计语言 第1版</name>
-	<meta-data android:name="app_name" android:value="com.yk.dexdeapplication.App"/>
-	<meta-data android:name="app_version" android:value="/dexDir_1.0"/>
+	<meta-data name="app_name" value="com.yk.dexdeapplication.App"/>
+	<meta-data name="app_version" value="/dexDir_1.0"/>
 </root>
