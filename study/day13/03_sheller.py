@@ -12,16 +12,22 @@ import zipfile
 from PIL import Image
 import shutil
 
-stApkToolPt = r'D:\Android\Apktool\apktool_2.4.1\apktool.jar'
-stShellAppPt = r'.\shellApplicationSourceCode'
-staaptPt = r'D:\Android\sdk\build-tools\30.0.2\aapt.exe'
-stAndroidJarlibPt = r'D:\Android\sdk\platforms\android-29\android.jar'
-stdxJarPt = r'D:\Android\sdk\build-tools\30.0.2\lib\dx.jar'
-stApksignJarPt = r'D:\Android\sdk\build-tools\30.0.2\lib\apksigner.jar'
-stCurrentPt = os.path.abspath(__file__).replace(os.path.basename(__file__), "")
+stApkToolPt = r'D:\Android\Apktool\apktool_2.4.1\apktool.jar'  # apktool反编译工具
+stShellAppPt = r'.\shellApplicationSourceCode'  # 壳工程
+staaptPt = r'D:\Android\sdk\build-tools\30.0.2\aapt.exe'  # apk打包工具
+stAndroidJarlibPt = r'D:\Android\sdk\platforms\android-29\android.jar'  # 编译壳的依赖
+stdxJarPt = r'D:\Android\sdk\build-tools\30.0.2\lib\dx.jar'  # jar转dex工具
+stApksignJarPt = r'D:\Android\sdk\build-tools\30.0.2\lib\apksigner.jar'  # 签名工具
+stCurrentPt = os.path.abspath(__file__).replace(os.path.basename(__file__), "")  # 当前路径
 
 
 def add_srcDexToShellDex(srcDex, shellDex):
+    """
+    将原DEX添加到壳DEX尾部，保存到本目录下为classes.dex
+    :param srcDex: 源dxe路径
+    :param shellDex: 壳dxe路径
+    :return:
+    """
     liShellDt = []
     liSrcDexDt = []
     liAllDt = []
@@ -30,17 +36,22 @@ def add_srcDexToShellDex(srcDex, shellDex):
     with open(shellDex, "rb") as f:
         shellData = f.read()
         liShellDt = list(struct.unpack(len(shellData) * 'B', shellData))
+
     with open(srcDex, 'rb') as f:
         srcDt = f.read()
         liSrcDexDt = list(struct.unpack(len(srcDt) * 'B', srcDt))
+
     liAllDt.extend(shellData)
+
     # 加密原DEX
     for i in liSrcDexDt:
         liAllDt.append(i ^ 0xff)
 
+    # 获取原dex长度
     iSrcDexLen = len(liSrcDexDt)
     liSrcDexLen = intToSmalEndian(iSrcDexLen)
     liSrcDexLen.reverse()
+
     # 加密原DEX长度
     for i in liSrcDexLen:
         liAllDt.append(i ^ 0xff)
@@ -64,13 +75,13 @@ def add_srcDexToShellDex(srcDex, shellDex):
     for i in range(4):
         liAllDt[8 + i] = liNewChecksum[i]
 
+    # 更新加壳后的dex到本地
     with open(os.path.join(stCurrentPt, 'classes.dex'), 'wb') as f:
         f.write(bytes(liAllDt))
 
 
 def intToSmalEndian(numb):
     liRes = []
-
     stHexNumb = hex(numb)[2:]
     for i in range(8 - len(stHexNumb)):
         stHexNumb = '0' + stHexNumb
@@ -78,11 +89,17 @@ def intToSmalEndian(numb):
     for i in range(len(liRes)):
         liRes[i] = ord(bytes.fromhex(liRes[i]))
     liRes.reverse()
+    print("liRes:{}".format(liRes))
 
     return liRes
 
 
 def decompAPK(fp):
+    """
+    使用apktool反编译apk
+    :param fp: 需要反编译的apk路径
+    :return:
+    """
     cmd = []
     cmd.append('java')
     cmd.append('-jar')
@@ -95,11 +112,20 @@ def decompAPK(fp):
 
 
 def getAppName(fp):
+    """
+    获取反编译后AndroidManifest.xml的属性android:name
+    :param fp:
+    :return:
+    """
     stAppName = "android.app.Application"
     stDisassembleDp = fp + "decompile"
     stAMFp = os.path.join(stDisassembleDp, "AndroidManifest.xml")
+
+    # 解析AndroidManifest.xml
     oDomTree = parse(stAMFp)
     manifest = oDomTree.documentElement
+
+    # 获取节点
     apps = manifest.getElementsByTagName('application')
 
     if len(apps) != 1:
@@ -112,19 +138,29 @@ def getAppName(fp):
 
 
 def replaceTag(fp, stValue):
+    """
+    替换壳Applicaiton name到原apk的AndroidManifest.xml内
+    :param fp: 原始apk路径
+    :param stValue: 需要替换的内容
+    :return:
+    """
+    # f反编译后的AndroidManifest.xml路径
     stAXMLFp = os.path.join(stCurrentPt, fp + "decompile", "AndroidManifest.xml")
     dom = None
     with open(stAXMLFp, 'r', encoding='UTF-8') as f:
         dom = parse(f)
     root = dom.documentElement
     app = root.getElementsByTagName('application')[0]
-    app.setAttribute("android:name", stValue)
+    app.setAttribute("android:name", stValue)  # 更新节点
     with open(stAXMLFp, "w", encoding='UTF-8') as f:
         dom.writexml(f, encoding='UTF-8')
-    stDecompDp = os.path.join(stCurrentPt, fp + "decompile")
-    # 修复PNG文件BUG
 
+    stDecompDp = os.path.join(stCurrentPt, fp + "decompile")
+
+    # 修复PNG文件BUG
     PngBug(stDecompDp)
+
+    # 使用apktool重新打包apk
     cmd = []
     cmd.append('java')
     cmd.append('-jar')
@@ -139,6 +175,11 @@ def replaceTag(fp, stValue):
 
 
 def save_appName(appName):
+    """
+    更新文件内容
+    :param appName: 需要更新的内容
+    :return:
+    """
     stCfgFp = os.path.join(stShellAppPt, "java/cn/yongye/stub/common/Config.java")
     with open(stCfgFp, 'w') as f:
         f.write("package cn.yongye.stub.common;\n")
@@ -162,6 +203,10 @@ def compileSrcApk(dp):
 
 
 def compileShellDex():
+    """
+    编译出壳DEX
+    :return:
+    """
     licmd2 = []
     licmd2.append("javac")
     licmd2.append("-encoding")
@@ -190,16 +235,25 @@ def compileShellDex():
 
 
 def replaceSDexToShellDex(stSApkFp):
+    """
+    替换原apk(二次打包)中的DEX文件为壳DEX
+    :param stSApkFp: 修改AndroidManifest.xml后二次打包的apk路径
+    :return:
+    """
     # 提取原APK中的DEX到本地
     oFApk = zipfile.ZipFile(stSApkFp)
     oFApk.extract("classes.dex", stCurrentPt)
     oFApk.close()
+
+    # 源dxe路径
     stSDexFp = os.path.join(stCurrentPt, "classes.dex")
+    # 壳dex路径
     stShellDexFp = os.path.join(stCurrentPt, "shell.dex")
+
     # 将原DEX添加到壳DEX尾部，保存到本目录下为classes.dex
     add_srcDexToShellDex(stSDexFp, stShellDexFp)
-    # 将修改后的壳DEX添加到原DEX中
 
+    # 将修改后的壳DEX添加到原DEX中
     cmd1 = []
     cmd1.append(staaptPt)
     cmd1.append("r")
@@ -207,6 +261,7 @@ def replaceSDexToShellDex(stSApkFp):
     cmd1.append("classes.dex")
     check_call(cmd1)
 
+    # 将当前路径下的classes.dex压缩到stSApkFp下的classes.dex
     oNewApk = zipfile.ZipFile(stSApkFp, "a")
     oNewApk.write("classes.dex", "classes.dex")
     oNewApk.close()
@@ -216,6 +271,12 @@ def replaceSDexToShellDex(stSApkFp):
 
 
 def signApk(fp, stKeystoreFp):
+    """
+    使用apksigner工具从新签名加壳后的apk
+    :param fp: 需要签名的apk路径
+    :param stKeystoreFp:签名工具的路径
+    :return:
+    """
     cmd = []
     cmd.append("java")
     cmd.append("-jar")
@@ -249,9 +310,11 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('-f', help="对指定文件进行加固", nargs=1, metavar='APK')
     args = parser.parse_args()
-
+    print("args:{}".format(args))
     if args.f:
+        # 获取命令行参数
         fp = args.__dict__.get('f')[0]
+
         """
         1. 第一步：确定加密算法
         """
@@ -263,12 +326,14 @@ if __name__ == "__main__":
         """
         # 反编译原apk
         decompAPK(fp)
-        # print("[*] 反编译原的apk文件{}完成".format(fp))
+        print("[*] 反编译原的apk文件{}完成".format(fp))
+
         # 获取Applicaiton name并保存到壳App源码中
         stSrcDexAppName = getAppName(fp)
-        # print("[*] 获取原apk文件的Application Android:name=\"{}\" 完成".format(stSrcDexAppName))
+        print("[*] 获取原apk文件的Application Android:name=\"{}\" 完成".format(stSrcDexAppName))
         save_appName(stSrcDexAppName)
-        # print("[*] 保存原apk文件的Application Android:name=\"{}\" 到壳App源码的配置文件完成".format(stSrcDexAppName))
+        print("[*] 保存原apk文件的Application Android:name=\"{}\" 到壳App源码的配置文件完成".format(stSrcDexAppName))
+
         # 编译出壳DEX
         compileShellDex()
         print("[*] 壳App的class字节码文件编译为:shell.dex完成")
