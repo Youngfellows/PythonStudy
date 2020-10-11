@@ -14,7 +14,9 @@ import string
 import time
 
 # from elf_header import ELF
-from study.day14_jiagu.apk_auto_enforce.elf_header import ELF
+# from study.day14_jiagu.apk_auto_enforce.elf_header import ELF
+
+# from study.day12.file_path_manager import FilePathManager
 
 '''
 一、针对目标app不存在自定义application的情况
@@ -292,7 +294,7 @@ def main(filepath=None):
                             extracted_dir + '/lib/' + item + '/libhackcodejiagu.so')
 
     # 破坏SO文件的ELF头部（删除 ELF header）
-    modify_ehdr_and_delete_shdr(extracted_dir)
+    # modify_ehdr_and_delete_shdr(extracted_dir)
 
     # Step10: 将修改后的app重压缩成zip文件
     print('[+] Compress %s folder into Target.modified.2.apk' % extracted_dir)
@@ -310,8 +312,10 @@ def main(filepath=None):
 
 
 if __name__ == '__main__':
+    """
+    命令行参数: python jiagu.py xxx.apk
+    """
     start = time.time()
     main()
     end = time.time()
-    print
-    "Total time running %s seconds" % (str(end - start))
+    print("Total time running %s seconds" % (str(end - start)))
