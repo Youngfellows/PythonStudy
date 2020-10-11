@@ -1,0 +1,15 @@
+*.apk
+*.pyc
+conn.py
+run.py
+apk/
+TuokeApk/bin/
+TuokeApk/gen/
+TuokeApk/build/
+TuokeApk/.gradle/
+TuokeApk/.idea/
+apktool.bat
+apktool_2.2.2.jar
+.idea/
+Target.modified.apk_files/
+
