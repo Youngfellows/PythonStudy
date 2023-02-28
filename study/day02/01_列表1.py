@@ -14,7 +14,7 @@ print("aList[3] = %s" % aList[3])
 
 # 3)列表的切片 //通过切片来取列表中的一部分
 print("aList[4:6] = %s" % aList[2:6])
-print(type("type is %s" % aList[2:6]))
+print("type is %s" % type(aList[2:6]))
 
 # 4)列表的嵌套 //列表支持嵌套，就是列表里面可以套列表，甚至套字典，元组等
 bList = [100, 3.14, ["aaa", "apple", "banana"]]
@@ -83,4 +83,3 @@ print(list9.index("very"))
 # 13)统计某个元组在列表里面的次数,内置函数count
 aList = ['to', 'do', 'or', 'not', 'to', 'do']
 print(aList.count("to"))
-
