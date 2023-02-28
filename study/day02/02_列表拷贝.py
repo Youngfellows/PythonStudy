@@ -32,9 +32,13 @@ print(g)
 
 print("*" * 30)
 i = {"apple": 33, "orange": 23.4, "banana": 35.8}
-j = set(i)
+# j = set(i)
+j = dict(i)
+j["pear"] = 12.8
 print("id(i) = %s" % id(i))
 print("id(j) = %s" % id(j))
+print(i)
+print(j)
 
 # 2.多行语句
 str = "中国广东省" \
