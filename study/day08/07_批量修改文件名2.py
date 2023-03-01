@@ -16,6 +16,7 @@ class MyOS(object):
         # path = "."
         path = os.getcwd()  # 返回当前工作目录
         dirs = os.listdir(path)  # 获取所有文件和文件夹
+        print("path:%s" % path)
         print(dirs)
 
         # 输出所有文件和文件夹
@@ -35,6 +36,8 @@ class MyOS(object):
 
         # 下面代码可获得指定路径下的所有文件及文件夹下子文件的目录列表
         for parent, dirnames, filenames in os.walk(path):
+            print("parent:%s" % parent)
+            print("dirnames:%s" % dirnames)
             for filename in filenames:
                 file = os.path.join(parent, filename)
                 print(file)
