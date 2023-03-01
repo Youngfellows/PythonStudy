@@ -47,7 +47,8 @@ print(student)
     1）不允许同一个键出现两次。创建时如果同一个键被赋值两次，后一个值会被记住
     2）键必须不可变，所以可以用数字，字符串或元组充当，而用列表就不行
 """
-car = {"name": "奔驰", "color": "red", "price": 44000, "owner": {"owner_name": "郭靖", "age": 33}, "door": ["前门", "后门"]}
+car = {"name": "奔驰", "color": "red", "price": 44000, "owner": {"owner_name": "郭靖", "age": 33},
+       "door": ["前门", "后门"]}
 print(car)
 
 """
@@ -60,7 +61,7 @@ print("car字典大小:size = %d" % len(car))
 # 2.转换为json字符串
 json_str = str(car)
 print(type(car))
-print(type(str(json_str)))
+print(type(json_str))
 print(json_str)
 
 # 3.清空字典
@@ -97,7 +98,8 @@ person2 = dict.fromkeys(person_key, person_value)
 print(person2)
 
 # 6.获取字典元素
-car = {"name": "奔驰", "color": "red", "price": 44000, "owner": {"owner_name": "郭靖", "age": 33}, "door": ["前门", "后门"]}
+car = {"name": "奔驰", "color": "red", "price": 44000, "owner": {"owner_name": "郭靖", "age": 33},
+       "door": ["前门", "后门"]}
 print("car name is: %s" % car["name"])
 print("car color is: %s" % car.get("color"))
 print("car speed is: %s" % car.get("speed", "NA"))  # 元素不存在,返回默认
