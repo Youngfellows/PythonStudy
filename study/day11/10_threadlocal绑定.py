@@ -1,5 +1,7 @@
 # coding=utf-8
 import threading
+import time
+import random
 
 
 class Studen:
@@ -23,6 +25,9 @@ def process_studen():
 # 绑定ThreadLocal的student:
 def process_thread(studen):
     local_school.studen = studen
+    sleepTime = random.randint(1, 5)
+    print("Thread Name:%s,sleepTime:%d" % (threading.current_thread().name, sleepTime))
+    time.sleep(sleepTime)
     process_studen()
 
 

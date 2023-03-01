@@ -11,8 +11,8 @@ class MyThread(Thread):
         for i in range(5):
             time.sleep(1)
             # name属性中保存的是当前线程的名字
-            msg = "I'm " + self.name + " @ " + str(i)
-            print(msg)
+            msg = "\nI'm " + self.name + " @ " + str(i)
+            print(msg, end="\n")
 
 
 if __name__ == "__main__":

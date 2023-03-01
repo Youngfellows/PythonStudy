@@ -11,7 +11,7 @@ class MyThread(Thread):
     def run(self):
         for i in range(7):
             time.sleep(1)
-            msg = "I'm " + self.name + " @ " + str(i)
+            msg = "\nI'm " + self.name + " @ " + str(i) + "\n"
             print(msg)
 
 
