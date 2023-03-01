@@ -148,7 +148,7 @@ print("search, matchObj = {}".format(matchObj))
 line = "one 123 two 3.14 three 489 five 987 ..."
 
 # 查找数字
-pattern = re.compile(r"\d+.\d+")
+pattern = re.compile(r"\d+\.?\d+")
 digitals = pattern.findall(line)
 print(digitals)
 
@@ -174,7 +174,7 @@ line = "one,123,two 3.14,three 489, five 987, ..."
 split_list = re.split(r",", line)
 print(split_list)
 
-split_list = re.split(r"[,|\s]+\d+[,|\s]+", line)
+split_list = re.split(r"[,|\s]+\d+\.?\d+[,|\s]+", line)
 print(split_list)
 
 #9、匹配数字
