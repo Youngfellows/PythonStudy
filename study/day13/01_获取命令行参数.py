@@ -22,9 +22,9 @@ class CmdField(object):
         print("args:{}".format(args))
         print("opts:{}".format(opts))
         for opt, arg in opts:
+            print("opt:%s,arg:%s" % (opt, arg))
             if opt == '-h':
-                print
-                '-s <shield apk path>', '-p <payload apk path>'
+                print("usage: python.exe 01_获取命令行参数.py -s <shield apk path> -p <payload apk path>")
                 sys.exit()
             elif opt in ("-s", "--shield_path"):
                 shield_path = arg
