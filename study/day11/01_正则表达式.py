@@ -177,8 +177,59 @@ print(split_list)
 split_list = re.split(r"[,|\s]+\d+\.?\d+[,|\s]+", line)
 print(split_list)
 
-#9、匹配数字
+# 9、匹配数字
 line = "one 123 two 3.14 three 489 five 987 six 00.798 senv 9.79 ,ten 0.431"
 
-matchOjb = re.findall(r"[1-9]\d*\.?\d*",line)
+matchOjb = re.findall(r"[1-9]\d*\.?\d*", line)
 print(matchOjb)
+
+# 10、判断字符串是否以为某个字符串结束
+print("*" * 30)
+suffix = ".sdf"  # 以.sdf结尾
+str1 = "android.sdf"
+str2 = "kotlin.txt"
+
+find = re.search(suffix + "$", str1)  # 方式1:判断是否以.sdf结尾
+print("1,find={}".format(find))
+if find:
+    print("1,The string ends with the pattern")
+else:
+    print("1,The string does not end with the pattern")
+
+find = str1.endswith(suffix)  # 方式2:判断是否以.sdf结尾
+print("2,find={}".format(find))
+if find:
+    print("2,The string ends with the pattern")
+else:
+    print("2,The string does not end with the pattern")
+
+# 方式3:判断是否以.sdf结尾
+find = str1[-len(suffix):] == suffix
+print("3,find={}".format(find))
+if find:
+    print("3,The string ends with the {}".format(suffix))
+else:
+    print("3,The string does not end with the {}".format(suffix))
+
+print("=" * 30)
+find = re.search(suffix + "$", str2)  # 方式1:判断是否以.sdf结尾
+print("1,find={}".format(find))
+if find:
+    print("1,The string ends with the pattern")
+else:
+    print("1,The string does not end with the pattern")
+
+find = str2.endswith(suffix)  # 方式2:判断是否以.sdf结尾
+print("2,find={}".format(find))
+if find:
+    print("2,The string ends with the pattern")
+else:
+    print("2,The string does not end with the pattern")
+
+# 方式3:判断是否以.sdf结尾
+find = str2[-len(suffix):] == suffix
+print("3,find={}".format(find))
+if find:
+    print("3,The string ends with the {}".format(suffix))
+else:
+    print("3,The string does not end with the {}".format(suffix))
